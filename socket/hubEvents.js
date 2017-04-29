@@ -38,9 +38,9 @@ module.exports = (io, client) => {
          .save()
          .then(room => {
             return Hub.findOneAndUpdate(
-               {_id: data.hubId, started: false},
-               {$addToSet: room._id}
-            )
+               {_id: currentHub._id, started: false},
+               {$addToSet: {rooms :room._id}}
+            ).exec()
          })
          .then(hub => {
             if (!hub) {
@@ -51,5 +51,21 @@ module.exports = (io, client) => {
          .catch(err => {
             console.error(err);
          })
+   })
+
+   client.on('hub:start', data=>{
+      Hub.update({_id: currentHub._id}, {started: true}, {}, (err, res)=>{
+         if (!err && res.nModified) {
+            io.to(getChannel()).emit('hub:started', hub)
+         }
+      })
+   })
+
+   client.on('hub:message', data=>{
+      const me = getUserByToken(data.token)
+      if (!me) {
+         return
+      }
+      io.to(getChannel()).emit('hub:message', {sender: me, payload: data.payload})
    })
 }

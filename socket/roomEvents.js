@@ -57,14 +57,14 @@ module.exports = (io, client) => {
       client.leave(data._id)
    })*/
 
-   client.on('message', data => {
+   client.on('room:message', data => {
       const user = getUserByToken(data.token)
       if (!user) {
          return
       }
       io.to(data.roomId).emit('message', {
          sender: user,
-         payload: data
+         payload: data.payload
       })
    })
 }
