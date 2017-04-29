@@ -21,39 +21,39 @@ module.exports = function(app) {
     let listSelect = {};
 
   //user
-    routes.post('user/create',   user.create);
-    routes.post('user/edit',     auth.auth, user.edit);
-    routes.post('user/remove',   query.remove(UserModel, 'User'));
-    routes.get('user/:id',       query.get(UserModel, {hash: 0}, 'User'));
-    routes.get('user/',          query.list(UserModel, {hash: 0}, 'User'));
+    routes.post('/user/create',   user.create);
+    routes.post('/user/edit',     auth.auth, user.edit);
+    routes.post('/user/remove',   query.remove(UserModel, 'User'));
+    routes.get('/user/:id',       query.get(UserModel, {hash: 0}, 'User'));
+    routes.get('/user/',          query.list(UserModel, {hash: 0}, 'User'));
 
 
 //task
-  routes.post('task/create',   query.create);
-  routes.post('task/edit',     auth.auth, query.edit);
-  routes.post('task/remove',   query.remove(TaskModel, 'Task'));
-  routes.get('task/:id',       query.get(TaskModel, getSelect, 'Task'));
-  routes.get('task/',          query.list(TaskModel, listSelect, 'Task'));
+  routes.post('/task/create',   query.create(TaskModel, 'Task'));
+  routes.post('/task/edit',     auth.auth, query.edit(TaskModel, 'Task'));
+  routes.post('/task/remove',   query.remove(TaskModel, 'Task'));
+  routes.get('/task/:id',       query.get(TaskModel, getSelect, 'Task'));
+  routes.get('/task/',          query.list(TaskModel, listSelect, 'Task'));
 
 //hub
-  routes.post('hub/create',   query.create);
-  routes.post('hub/edit',     auth.auth, query.edit);
-  routes.post('hub/remove',   query.remove(HubModel, 'Hub'));
-  routes.get('hub/:id',       query.get(HubModel, getSelect, 'Hub'));
-  routes.get('hub/',          query.list(HubModel, listSelect, 'Hub'));
+  routes.post('/hub/create',   query.create(HubModel, 'Hub'));
+  routes.post('/hub/edit',     auth.auth, query.edit(HubModel, 'Hub'));
+  routes.post('/hub/remove',   query.remove(HubModel, 'Hub'));
+  routes.get('/hub/:id',       query.get(HubModel, getSelect, 'Hub'));
+  routes.get('/hub',          query.list(HubModel, listSelect, 'Hub'));
 //room
-  routes.post('room/create',   query.create);
-  routes.post('room/edit',     auth.auth, query.edit);
-  routes.post('room/remove',   query.remove(RoomModel, 'Room'));
-  routes.get('room/:id',       query.get(RoomModel, getSelect, 'Room'));
-  routes.get('room/',          query.list(RoomModel, listSelect, 'Room'));
+  routes.post('/room/create',   query.create(RoomModel, 'Room'));
+  routes.post('/room/edit',     auth.auth, query.edit(RoomModel, 'Room'));
+  routes.post('/room/remove',   query.remove(RoomModel, 'Room'));
+  routes.get('/room/:id',       query.get(RoomModel, getSelect, 'Room'));
+  routes.get('/room',          query.list(RoomModel, listSelect, 'Room'));
 
 //equipment
-  routes.post('equipment/create',   query.create);
-  routes.post('equipment/edit',     auth.auth, query.edit);
-  routes.post('equipment/remove',   query.remove(EquipmentModel, 'Equipment'));
-  routes.get('equipment/:id',       query.get(EquipmentModel, getSelect, 'Equipment'));
-  routes.get('equipment/',          query.list(EquipmentModel, listSelect, 'Equipment'));
+  routes.post('/equipment/create',   query.create(EquipmentModel, 'Equipment'));
+  routes.post('/equipment/edit',     auth.auth, query.edit(EquipmentModel, 'Equipment'));
+  routes.post('/equipment/remove',   query.remove(EquipmentModel, 'Equipment'));
+  routes.get('/equipment/:id',       query.get(EquipmentModel, getSelect, 'Equipment'));
+  routes.get('/equipment',          query.list(EquipmentModel, listSelect, 'Equipment'));
 
 
 // Other

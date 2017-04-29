@@ -6,7 +6,7 @@ const router = require('./router');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const config = require('./config.json');
-const socket = require('./socket.js')
+const socket = require('./socket')
 
 mongoose.Promise = global.Promise;
 const conn = mongoose.connect(config.db);
@@ -17,6 +17,7 @@ mongoose.connection.once('connected', function() {
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
+router(app);
 
 const server = app.listen(config.port);
 socket(server)

@@ -26,6 +26,8 @@ UserSchema.methods.generateJwt = function() {
   }, (process.env.MY_TOKEN || config.JWTSecret), { expiresIn: config.JWTExpiration });
 };
 
-
+UserSchema.statics.verifyJwt = function (token) {
+   return jsonwebtoken.verify(roken, process.env.MY_TOKEN || config.JWTSecret)
+}
 
 module.exports = mongoose.model('User', UserSchema);

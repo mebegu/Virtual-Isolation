@@ -60,7 +60,7 @@ exports.create = function (collection, logType){
   const data = new collection(req.body);
 
   data.save((err) => {
-    return respondQuery(res, err, data._id, 'logType', 'Created');
+    return respondQuery(res, err, data, logType, 'Created');
   });
 }
 }
@@ -71,7 +71,7 @@ exports.edit = function (collection, logType){
   query = {
     _id: req.user._id
   };
-  
+
   var object = req.body;
   var upt = { $set: object }
 
@@ -79,9 +79,7 @@ exports.edit = function (collection, logType){
       new: true
     },
     function (err, data) {
-      return respondQuery(res, err, data._id, logType, 'Edited');
+      return respondQuery(res, err, data, logType, 'Edited');
     });
 }
 }
-
-

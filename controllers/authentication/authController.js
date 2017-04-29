@@ -8,6 +8,7 @@ const respond = utility.respond;
 
 exports.login = function (req, res, next) {
   console.log('Login Request Received');
+  console.log('Login Body ', req.body);
   let username = req.body.username;
   let password = req.body.password;
 
