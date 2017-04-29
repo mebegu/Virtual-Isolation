@@ -6,13 +6,15 @@ const Schema = mongoose.Schema;
 const TaskSchema = new Schema({
   title:        [{type: mongoose.SchemaTypes.ObjectId}],
   description:   {type: String , required: false},
-  date:          {type: Date   , default: Date.now},
+  startDate:     {type: Date},
   duration:      Number,
   users:        [{type: mongoose.SchemaTypes.ObjectId}],
   random:        {type: Boolean, default: false},
   completed:     {type: Boolean, default: false},
   completionDate:Date,
-  deadline:       Date
+  deadline:       Number,
+  failed:        {type: Boolean, default: false}
 });
+
 
 module.exports = mongoose.model('Task', TaskSchema);
