@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 
 const HubSchema = new Schema({
+  members:     [{type: mongoose.SchemaTypes.ObjectId}],
   room:     [{type: mongoose.SchemaTypes.ObjectId}],
   label:     {type: String , required: false},
   date:      {type: Date   , default: Date.now},
