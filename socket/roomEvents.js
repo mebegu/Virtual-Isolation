@@ -54,7 +54,12 @@ module.exports = (io, client) => {
       if (!user) {
          return
       }
-      io.to(data.roomId).emit('message', {
+      const payload = {
+         _id: String(Date.now()) + String(Math.random()).substr(2,5),
+         message: data.message,
+         sendedAt: Date.now().toString()
+      }
+      io.to(data.roomId).emit('room:messaged', {
          sender: user,
          payload: data.payload
       })

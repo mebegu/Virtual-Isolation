@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 
 const TaskSchema = new Schema({
-  title:        [{type: mongoose.SchemaTypes.ObjectId}],
+  label:        {type: String, required: true},
   description:   {type: String , required: false},
   startDate:     {type: Date},
   duration:      Number,
@@ -13,7 +13,8 @@ const TaskSchema = new Schema({
   completed:     {type: Boolean, default: false},
   completionDate:Date,
   deadline:       Number,
-  failed:        {type: Boolean, default: false}
+  failed:        {type: Boolean, default: false},
+  equipments:  [{type: mongoose.SchemaTypes.ObjectId}],
 });
 
 

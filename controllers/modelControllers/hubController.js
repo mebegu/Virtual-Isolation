@@ -12,8 +12,8 @@ exports.getHubs = (req, res) => {
 
 exports.getMyHub = (req, res) => {
    User
-      .findById(req.user._id)
-      .populate('currentHub')
+      .findById(req.params._id)
+      .populate('currentHub currentHub.scenario currentHub.scenario.tasks currentHub.rooms currentHub.members')
       .exec((err, user) => {
          res.send(user && user.currentHub || {})
       })

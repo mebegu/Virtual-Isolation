@@ -3,11 +3,12 @@ const auth      = require('./controllers/authentication/authController');
 
 //models-controllers
   const user      = require('./controllers/modelControllers/userController');
-  const hub       = require('./controllers/modelControllers/hubController')
+  const hub       = require('./controllers/modelControllers/hubController');
   const UserModel = require('./models/User');
   const TaskModel = require('./models/Task');
   const HubModel = require('./models/Hub');
   const RoomModel = require('./models/Room');
+  const Scenario = require('./models/Scenario')
   const EquipmentModel = require('./models/Equipment');
 
 
@@ -42,7 +43,7 @@ module.exports = function(app) {
   routes.post('/hub/remove',   query.remove(HubModel, 'Hub'));
   routes.get('/hub/:id',       query.get(HubModel, getSelect, 'Hub'));
   routes.get('/hub',           hub.getHubs);//query.list(HubModel, listSelect, 'Hub'));
-  routes.get('/myhub',        hub.getMyHub);
+  routes.get('/myhub/:id',     hub.getMyHub);
 //room
   routes.post('/room/create',   query.create(RoomModel, 'Room'));
   routes.post('/room/edit',     auth.auth, query.edit(RoomModel, 'Room'));
@@ -57,6 +58,9 @@ module.exports = function(app) {
   routes.get('/equipment/:id',       query.get(EquipmentModel, getSelect, 'Equipment'));
   routes.get('/equipment',          query.list(EquipmentModel, listSelect, 'Equipment'));
 
+  //scenarios
+  //routes.get('/scenarios' )
+ routes.get('/scenarios',          query.list(Scenario, listSelect, 'Scenario'));
 
 // Other
   routes.post('/login', auth.login);

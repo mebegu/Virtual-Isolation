@@ -21,3 +21,9 @@ router(app);
 
 const server = app.listen(config.port);
 socket(server)
+
+console.log(process.argv)
+if (process.argv[2] && process.argv[2] == 'populateTasks') {
+	console.log('Populating tasks...')
+	require('./populateTasks')
+}

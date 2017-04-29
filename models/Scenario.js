@@ -10,4 +10,4 @@ const ScenarioSchema = new Schema({
    duration: Number
 })
 
-module.exports = mongoose.model(ScenarioSchema)
+module.exports = mongoose.model('Scenario', ScenarioSchema)
