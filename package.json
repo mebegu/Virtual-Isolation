@@ -17,7 +17,8 @@
     "express": "^4.15.0",
     "express-jwt": "^5.1.0",
     "jsonwebtoken": "^7.3.0",
-    "mongoose": "^4.8.5"
+    "mongoose": "^4.8.5",
+    "socket.io": "^1.7.3"
   },
   "devDependencies": {
     "eslint": "^3.17.0",
