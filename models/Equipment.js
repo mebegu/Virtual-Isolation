@@ -8,7 +8,6 @@ const EquipmentSchema = new Schema({
   description:   {type: String , required: false},
   relatedTasks: [{type: mongoose.SchemaTypes.ObjectId}],
   lastMaintanence: {type: Date, default: Date.now},
-  useTime:        Number,
   repairTime:     Number,
   detCoef:       {type: Number, defualt: 1000},
   size:          Number,
