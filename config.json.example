@@ -1,0 +1,7 @@
+{
+  "db": "DBIP",
+  "port": "PORT",
+  "JWTSecret": "SECRETTEXT",
+  "JWTExpiration": "EXPIRATIONTIME",
+  "saltRounds": "ROUNDS"
+}

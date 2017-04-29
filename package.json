@@ -1,0 +1,26 @@
+{
+  "name": "salep-server",
+  "version": "1.0.0",
+  "description": "Server for salepgames.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "Mehmet Berk Gürçay",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "express": "^4.15.0",
+    "express-jwt": "^5.1.0",
+    "jsonwebtoken": "^7.3.0",
+    "mongoose": "^4.8.5"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.0",
+    "eslint-config-google": "^0.7.1"
+  }
+}

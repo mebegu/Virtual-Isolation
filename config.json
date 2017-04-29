@@ -1,0 +1,7 @@
+{
+  "db": "mongodb://admin:ciborg1234@ds041494.mlab.com:41494/spaceapps",
+  "port": "5567",
+  "JWTSecret": "lciborg",
+  "JWTExpiration": "1d",
+  "saltRounds": "5"
+}
