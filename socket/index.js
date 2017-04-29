@@ -1,3 +1,4 @@
+const User = require('../models/User')
 
 module.exports = server => {
    const io = require('socket.io')(server)

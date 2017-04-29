@@ -42,7 +42,8 @@ exports.login = function (req, res, next) {
           success = true;
           data = {
             token: user.generateJwt(),
-            _id: user._id
+            _id: user._id,
+            username: user.username
           };
         }
         return respond(res, status, success, detail, data, err);

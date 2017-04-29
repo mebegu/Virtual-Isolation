@@ -49,14 +49,6 @@ module.exports = (io, client) => {
          })
    })
 
-   /*client.on('room:leave', data => {
-      const user = getUserByToken(data.token)
-      if (!user) {
-         return
-      }
-      client.leave(data._id)
-   })*/
-
    client.on('room:message', data => {
       const user = getUserByToken(data.token)
       if (!user) {

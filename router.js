@@ -3,6 +3,7 @@ const auth      = require('./controllers/authentication/authController');
 
 //models-controllers
   const user      = require('./controllers/modelControllers/userController');
+  const hub       = require('./controllers/modelControllers/hubController')
   const UserModel = require('./models/User');
   const TaskModel = require('./models/Task');
   const HubModel = require('./models/Hub');
@@ -40,7 +41,8 @@ module.exports = function(app) {
   routes.post('/hub/edit',     auth.auth, query.edit(HubModel, 'Hub'));
   routes.post('/hub/remove',   query.remove(HubModel, 'Hub'));
   routes.get('/hub/:id',       query.get(HubModel, getSelect, 'Hub'));
-  routes.get('/hub',          query.list(HubModel, listSelect, 'Hub'));
+  routes.get('/hub',           hub.getHubs);//query.list(HubModel, listSelect, 'Hub'));
+  routes.get('/myhub',        hub.getMyHub);
 //room
   routes.post('/room/create',   query.create(RoomModel, 'Room'));
   routes.post('/room/edit',     auth.auth, query.edit(RoomModel, 'Room'));

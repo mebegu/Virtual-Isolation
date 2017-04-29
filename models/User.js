@@ -15,7 +15,8 @@ const UserSchema = new Schema({
   date:      {type: Date   , default: Date.now},
   photo:     {type: String},
   hash:      {type: String, required: true},
-  role:      {type: RoleSchema}
+  role:      {type: RoleSchema},
+  currentHub:{type: mongoose.SchemaTypes.ObjectId}
 });
 
 
@@ -27,7 +28,7 @@ UserSchema.methods.generateJwt = function() {
 };
 
 UserSchema.statics.verifyJwt = function (token) {
-   return jsonwebtoken.verify(roken, process.env.MY_TOKEN || config.JWTSecret)
+   return jsonwebtoken.verify(token, process.env.MY_TOKEN || config.JWTSecret)
 }
 
 module.exports = mongoose.model('User', UserSchema);

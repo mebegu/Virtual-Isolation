@@ -1,35 +1,48 @@
 const Hub = require('../models/Hub');
-const Room = requite('../models/Room')
+const Room = require('../models/Room')
 const getUserByToken = require('./utils').getUserByToken
+const errorCodes = require('./errorCodes.json')
 
 module.exports = (io, client) => {
    let currentHub
    let getChannel = () => 'hub/'+currentHub._id.toString()
 
    client.on('hub:join', data => {
+      console.log('Hub join request...')
       const me = getUserByToken(data.token)
       if (!me) {
-         console.error('(o)))')
+         console.error(':(0)')
          return
       }
+      console.log(me, data)
       Hub
-         .findOneAndUpdate(
-            {_id: data.hubId, started: false},
-            {$addToSet: {users: me._id}},
-            {new: true},
-            (err, hub) => {
+         .findById(data.hubId)
+         .exec((err, hub) => {
+            if (err) {
+               return console.error(err);
+            }
+            if(!hub) {
+               return console.error('NoHub')
+            }
+            let sz = hub.members.length
+            hub.members.addToSet(me._id)
+            if (sz != hub.members.length && hub.started) {
+               client.emit('error', {code: errorCodes.MissionStarted})
+               return
+            }
+            hub.save(err => {
+               console.error(err || 'saved');
                if (err) {
-                  return console.error(err);
+                  return socket.emit('error', {code: errorCodes.DBError})
                }
-               if (!hub) {
-                  console.error('Hub not found')
-                  return
-               }
+               Hub.update({_id: {$ne: data.hubId}}, {$pull: {members: me._id}}).exec()
                currentHub = hub
                client.join(getChannel())
-               io.to(getChannel()).emit('hub:joined', {hub, user:me})
-            }
-         )
+               //client.emit('hub:join', {hub, user:me})
+               io.to(getChannel()).emit('hub:join', {hub, user:me})
+               console.log('Joined...')
+            })
+         })
    })
 
    client.on('hub:addRoom', data => {
@@ -46,17 +59,35 @@ module.exports = (io, client) => {
             if (!hub) {
                return
             }
-            io.to(getChannel()).emit('hub:newRoom', room)
+            io.to(getChannel()).emit('hub:addRoom', room)
          })
          .catch(err => {
             console.error(err);
          })
    })
 
+   client.on('hub:leave', data => {
+      const me = getUserByToken(data.token)
+      if (!me) {
+         return
+      }
+      Hub
+         .update({_id: currentHub._id}, {$pull: {members: me._id}}).exec()
+         .then(() => User.findByIdAndUpdate(me._id, {currentHub: null}).exec())
+         .then(() => {
+            currentHub = undefined
+            client.leave(getChannel())
+         })
+         .catch(err => {
+            console.error(err);
+            client.emit('error', {code: errorCodes.DBError})
+         })
+   })
+
    client.on('hub:start', data=>{
       Hub.update({_id: currentHub._id}, {started: true}, {}, (err, res)=>{
          if (!err && res.nModified) {
-            io.to(getChannel()).emit('hub:started', hub)
+            io.to(getChannel()).emit('hub:started')
          }
       })
    })

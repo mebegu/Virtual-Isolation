@@ -11,6 +11,8 @@ const HubSchema = new Schema({
   started:     {type: Boolean, default: false}
 });
 
-
+HubSchema.post('init', doc => {
+   doc.room = undefined
+})
 
 module.exports = mongoose.model('Hub', HubSchema);
