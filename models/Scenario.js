@@ -7,7 +7,8 @@ const ScenarioSchema = new Schema({
    description: String,
    crewSize: Number,
    tasks: [{type: mongoose.SchemaTypes.ObjectId}],
-   duration: Number
+   duration: Number,
+   roomNumber: Number
 })
 
 module.exports = mongoose.model(ScenarioSchema)
