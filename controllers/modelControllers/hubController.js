@@ -1,5 +1,6 @@
 const utility = require('./../other/utility');
 const Hub = require('../../models/Hub')
+const User = require('../../models/User')
 
 exports.getHubs = (req, res) => {
    Hub
@@ -11,10 +12,26 @@ exports.getHubs = (req, res) => {
 }
 
 exports.getMyHub = (req, res) => {
-   User
-      .findById(req.params._id)
-      .populate('currentHub currentHub.scenario currentHub.scenario.tasks currentHub.rooms currentHub.members')
+   Hub
+      .findOne({members: req.params.id})
+      //.populate('rooms scenario members')
+      .populate({
+         path: 'rooms'
+      })
+      .poplulate({
+         path: 'members',
+         select: {hash: 0}
+      })
+      .poplulate({
+         path: 'scenario',
+         poplulate: {
+            path: 'tasks'
+         }
+      })
       .exec((err, user) => {
-         res.send(user && user.currentHub || {})
+         console.log('User ', user)
+         //res.send({data: user && user.currentHub || {}})
+         res.send({data: user})
+         //console.log(user.currentHub)
       })
 }

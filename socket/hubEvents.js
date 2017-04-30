@@ -102,14 +102,18 @@ module.exports = (io, client) => {
                      return socket.emit('error', {code: errorCodes.DBError})
                   }
                   Hub.update({_id: {$ne: data.hubId}}, {$pull: {members: me._id}}).exec()
-                  currentHub = hub
-                  client.join(getChannel())
+                  User.findByIdAndUpdate(me._id, {currentHub: hub})
+                     .exec()
+                     .then(() => {
+                        currentHub = hub
+                        client.join(getChannel())
                   //client.emit('hub:join', {hub, user:me})
-                  io.to(getChannel()).emit('hub:join', {hub, user:me})
-                  console.log('Joined...')
-                  setupOthers()
-               })
+                        io.to(getChannel()).emit('hub:join', {hub, user:me})
+                        console.log('Joined...')
+                        setupOthers()
+                     })
+                     .catch(err => console.error(err))
+                  })
             })
-      })
-
+         })
 }

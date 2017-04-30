@@ -10,6 +10,7 @@ const auth      = require('./controllers/authentication/authController');
   const RoomModel = require('./models/Room');
   const Scenario = require('./models/Scenario')
   const EquipmentModel = require('./models/Equipment');
+  const ScenarioModel = require('./models/Scenario');
 
 
 const query = require('./controllers/other/query.js');
@@ -58,9 +59,14 @@ module.exports = function(app) {
   routes.get('/equipment/:id',       query.get(EquipmentModel, getSelect, 'Equipment'));
   routes.get('/equipment',          query.list(EquipmentModel, listSelect, 'Equipment'));
 
-  //scenarios
-  //routes.get('/scenarios' )
- routes.get('/scenarios',          query.list(Scenario, listSelect, 'Scenario'));
+//Scenario
+  routes.post('/scenario/create',   query.create(ScenarioModel, 'Scenario'));
+  routes.post('/scenario/edit',     auth.auth, query.edit(ScenarioModel, 'Scenario'));
+  routes.post('/scenario/remove',   query.remove(ScenarioModel, 'Scenario'));
+  routes.get('/scenario/:id',       query.get(ScenarioModel, getSelect, 'Scenario'));
+  routes.get('/scenario',          query.list(ScenarioModel, listSelect, 'Scenario'));
+
+
 
 // Other
   routes.post('/login', auth.login);

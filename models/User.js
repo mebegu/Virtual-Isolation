@@ -16,7 +16,7 @@ const UserSchema = new Schema({
   photo:     {type: String},
   hash:      {type: String, required: true},
   role:      {type: RoleSchema},
-  currentHub:{type: mongoose.SchemaTypes.ObjectId}
+  currentHub:{type: mongoose.SchemaTypes.ObjectId, ref: 'Hub'}
 });
 
 
