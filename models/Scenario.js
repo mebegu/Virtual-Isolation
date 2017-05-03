@@ -6,7 +6,7 @@ const ScenarioSchema = new Schema({
    title: {type: String, required: true},
    description: String,
    crewSize: Number,
-   tasks: [{type: mongoose.SchemaTypes.ObjectId}],
+   tasks: [{type: mongoose.SchemaTypes.ObjectId, ref:'Task'}],
    duration: Number,
    roomCount: Number
 })

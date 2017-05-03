@@ -16,17 +16,11 @@ exports.getMyHub = (req, res) => {
       .findOne({members: req.params.id})
       //.populate('rooms scenario members')
       .populate({
-         path: 'rooms'
-      })
-      .poplulate({
-         path: 'members',
-         select: {hash: 0}
-      })
-      .poplulate({
-         path: 'scenario',
+         path: 'rooms members scenario',
          poplulate: {
             path: 'tasks'
-         }
+         },
+         select: {hash: 0}
       })
       .exec((err, user) => {
          console.log('User ', user)

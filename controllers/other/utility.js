@@ -47,7 +47,7 @@ exports.respondBadRequest = function (res) {
 exports.parseQueryOptions = function (req){
   var options = {
     skip: 0,
-    limit: 10,
+    limit: 50,
     sort: {
       date: -1 //Sort by Date Added DESC
     }

@@ -40,7 +40,7 @@ module.exports = function(app) {
 
 //hub
   routes.post('/hub/create',   query.create(HubModel, 'Hub'));
-  routes.post('/hub/edit',     auth.auth, query.edit(HubModel, 'Hub'));
+  routes.post('/hub/edit',     /*auth.auth, */query.edit(HubModel, 'Hub'));
   routes.post('/hub/remove',   query.remove(HubModel, 'Hub'));
   routes.get('/hub/:id',       query.get(HubModel, getSelect, 'Hub'));
   routes.get('/hub',           hub.getHubs);//query.list(HubModel, listSelect, 'Hub'));
@@ -64,7 +64,8 @@ module.exports = function(app) {
   routes.post('/scenario/edit',     auth.auth, query.edit(ScenarioModel, 'Scenario'));
   routes.post('/scenario/remove',   query.remove(ScenarioModel, 'Scenario'));
   routes.get('/scenario/:id',       query.get(ScenarioModel, getSelect, 'Scenario'));
-  routes.get('/scenario',          query.list(ScenarioModel, listSelect, 'Scenario'));
+  routes.get('/scenario',          require('./controllers/modelControllers/scenarioController').scenario);
+  //routes.get('/scenario',          query.list(ScenarioModel, listSelect, 'Scenario'));
 
 
 

@@ -24,7 +24,9 @@ module.exports = (io, client) => {
                .findByIdAndUpdate(
                   data.roomId,
                   { $push: {users: user._id} },
-                  { new: true })
+                  { new: true, populate: {
+                        path: 'equipments'
+                  }})
                .exec((err, room) => {
                   if (err) {
                      console.error(err)
@@ -41,8 +43,9 @@ module.exports = (io, client) => {
                   const rid = room._id.toString()
                   client.join(rid)
                   _rooms.push(rid)
-                  client.emit('info', {
+                  io.to(data.roomId).emit('room:joined', {
                      message: 'Joined',
+                     user,
                      data: room
                   })
                })

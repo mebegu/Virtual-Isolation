@@ -26,4 +26,10 @@ console.log(process.argv)
 if (process.argv[2] && process.argv[2] == 'populateTasks') {
 	console.log('Populating tasks...')
 	require('./populateTasks')
+} else if (process.argv[2] === 'populateS') {
+	console.log('Populating scenarios...')
+	require('./populateS')
+} else if (process.argv[2]) {
+	console.log('Populating equipment...')
+	require('./populateEquipments')
 }

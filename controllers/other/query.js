@@ -26,7 +26,7 @@ exports.list = function (collection, select, logType){
   console.log('List '+logType+' request received');
   let options = parseQueryOptions(req);
 
-  if (options.skip < 0 || options.limit > 30)
+  if (options.skip < 0 || options.limit > 60)
     return respondBadRequest(res);
 
   collection.find(req.query, select, options, function (err, data) {
@@ -68,14 +68,14 @@ exports.create = function (collection, logType){
 exports.edit = function (collection, logType){
     return function (req, res, next) {
   console.log('Edit '+logType+' request received');
-  query = {
-    _id: req.user._id
-  };
+  /*query = {
+    _id: req.body._id
+};*/
 
   var object = req.body;
   var upt = { $set: object }
 
-  collection.findByIdAndUpdate(query, upt, {
+  collection.findByIdAndUpdate(req.body.id, upt, {
       new: true
     },
     function (err, data) {

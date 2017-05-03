@@ -4,14 +4,14 @@ const Schema = mongoose.Schema;
 
 
 const EquipmentSchema = new Schema({
-  label:        [{type: mongoose.SchemaTypes.ObjectId}],
+  label:        String,
   description:   {type: String , required: false},
   relatedTasks: [{type: mongoose.SchemaTypes.ObjectId}],
   lastMaintanence: {type: Date, default: Date.now},
   repairTime:     Number,
-  detCoef:       {type: Number, defualt: 1000},
+  detCoef:       {type: Number, default: 1000},
   size:          Number,
-  useCoef:       {type: Number, defualt: 1},
+  useCoef:       {type: Number, default: 1},
 });
 
 EquipmentSchema.statics.getCondition = function (doc) {

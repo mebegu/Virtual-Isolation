@@ -9,7 +9,8 @@ const RoomSchema = new Schema({
   date:         {type: Date   , default: Date.now},
   type:         {type: mongoose.SchemaTypes.ObjectId},
   equipments:  [{type: mongoose.SchemaTypes.ObjectId}],
-  capacity:    {type: Number, default: 5}
+  capacity:    {type: Number, default: 5},
+  sayi:        {type: Number}
 });
 
 
